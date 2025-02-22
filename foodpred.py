@@ -57,13 +57,13 @@ def predictions_page():
 # Infographic Page
 def exploratory_data_analysis():
     st.subheader("Infograph of Clients")
-    #st.image("IFSSA CLEANED DATA_page-0001.jpg", caption="Clients Infograph", use_container_width=True)
-    # Display first image
+  
+    # Display images
     st.image("IFSSA CLEANED DATA_page-0001.jpg", use_container_width=True)
-    st.markdown("<h4 style='text-align: center;'>Clients Infograph 1</h4>", unsafe_allow_html=True)
 
     # Display second image
-    st.image("IFSSA CLEANED DATA_page-0002.jpg", caption="Clients Infograph 2", use_container_width=True)
+    st.image("IFSSA CLEANED DATA_page-0002.jpg", use_container_width=True)
+    st.markdown("<h4 style='text-align: center;'>Clients Infograph</h4>", unsafe_allow_html=True)
 
 # Dashboard Page
 def dashboard():
