@@ -86,7 +86,7 @@ def dashboard():
 # Main function to run the app
 def main():
     st.sidebar.title("Client Return Prediction App")
-    app_page = st.sidebar.radio)"Choose a page", ["Dashboard", "Infograph", "Predictions"]
+    app_page = st.sidebar.radio("Choose a page", ["Dashboard", "Infograph", "Predictions"])
 
     if app_page == "Dashboard":
         dashboard()
