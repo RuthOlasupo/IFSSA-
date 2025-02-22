@@ -57,12 +57,18 @@ def predictions_page():
 # Infographic Page
 def exploratory_data_analysis():
     st.subheader("Infograph of Clients")
-    st.image("IFSSA CLEANED DATA_page-0001.jpg", caption="Clients Infograph", use_container_width=True)
+    #st.image("IFSSA CLEANED DATA_page-0001.jpg", caption="Clients Infograph", use_container_width=True)
+    # Display first image
+    st.image("IFSSA CLEANED DATA_page-0001.jpg", use_container_width=True)
+    st.markdown("<h4 style='text-align: center;'>Clients Infograph 1</h4>", unsafe_allow_html=True)
+
+    # Display second image
+    st.image("IFSSA CLEANED DATA_page-0002.jpg", caption="Clients Infograph 2", use_container_width=True)
 
 # Dashboard Page
 def dashboard():
     header_image_url = "https://raw.githubusercontent.com/ChiomaUU/Client-Prediction/refs/heads/main/ifssa_2844cc71-4dca-48ae-93c6-43295187e7ca.avif"
-    st.image(header_image_url, use_column_width=True)  # Display the image at the top
+    st.image(header_image_url, use_container_width=True)  # Display the image at the top
 
     st.title("Client Return Prediction App (MVP)")
     st.write("This app predicts whether a client will return for food hampers.")
