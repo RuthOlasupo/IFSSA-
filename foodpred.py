@@ -94,7 +94,7 @@ def main():
     elif app_page == "Infograph":
         exploratory_data_analysis()
         
-    elif app_page == "Predictions"
+    elif app_page == "Predictions":
         predict()
     
     
