@@ -33,41 +33,41 @@ def predict(input_data):
     else:
         return [0]  # Unlikely to return
 
-# Streamlit App
-st.title("Client Retention Prediction for Food Bank")
-
-# Load and display dataset
-data = load_data()
-
-if st.checkbox("Show raw data"):
-    st.write(data)
-
-# User Input Section
-st.header("Enter Client Information")
-
-# Create input fields
-input_features = {
-    'age': st.number_input("Enter Age", min_value=0, max_value=100, value=30),
-    'household': st.selectbox("Is the client part of a household?", options=[0, 1], format_func=lambda x: "Yes" if x == 1 else "No"),
-    'time_since_previous_visit': st.number_input("Enter Time Since Previous Visit (in months)", min_value=0, value=1),
-    'contact_frequency': st.selectbox("Contact Frequency", options=["weekly", "monthly"])
-}
-
-# Convert input to DataFrame
-input_df = pd.DataFrame([input_features])
-
-# Prediction Button
-if st.button("Predict"):
-    prediction = predict(input_df)
-
-    st.subheader("Prediction Result")
-    if prediction[0] == 1:
-        st.success("✅ The client is likely to return.")
-    else:
-        st.error("❌ The client is unlikely to return.")
-
-  
+    # Streamlit App
+    st.title("Client Retention Prediction for Food Bank")
     
+    # Load and display dataset
+    data = load_data()
+    
+    if st.checkbox("Show raw data"):
+        st.write(data)
+    
+    # User Input Section
+    st.header("Enter Client Information")
+    
+    # Create input fields
+    input_features = {
+        'age': st.number_input("Enter Age", min_value=0, max_value=100, value=30),
+        'household': st.selectbox("Is the client part of a household?", options=[0, 1], format_func=lambda x: "Yes" if x == 1 else "No"),
+        'time_since_previous_visit': st.number_input("Enter Time Since Previous Visit (in months)", min_value=0, value=1),
+        'contact_frequency': st.selectbox("Contact Frequency", options=["weekly", "monthly"])
+    }
+    
+    # Convert input to DataFrame
+    input_df = pd.DataFrame([input_features])
+    
+    # Prediction Button
+    if st.button("Predict"):
+        prediction = predict(input_df)
+    
+        st.subheader("Prediction Result")
+        if prediction[0] == 1:
+            st.success("✅ The client is likely to return.")
+        else:
+            st.error("❌ The client is unlikely to return.")
+    
+      
+        
 
 def exploratory_data_analysis():
     #import base 64
@@ -75,7 +75,7 @@ def exploratory_data_analysis():
     st.subheader("Infograph of Clients")
     
     # Display the PNG image (Make sure the file is in the correct directory)
-    st.image("IFSSA CLEANED DATA_page-0001.jpg", caption="Clients Infograph", use_column_width=True)
+    st.image("IFSSA CLEANED DATA_page-0001.jpg", caption="Clients Infograph", use_container_width=True)
 
 # Run the function to display the elements
 exploratory_data_analysis()
