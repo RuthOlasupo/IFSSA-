@@ -69,8 +69,18 @@ if st.button("Predict"):
         st.error("❌ The client is unlikely to return.")
 
   
+    
 
+def exploratory_data_analysis():
+    #import base 64
+    # Set the section title
+    st.subheader("Infograph of Clients")
+    
+    # Display the PNG image (Make sure the file is in the correct directory)
+    st.image("Visualization Dashboard.png", caption="Clients Infograph", use_column_width=True)
 
+# Run the function to display the elements
+exploratory_data_analysis()
 
 
    
