@@ -1,31 +1,18 @@
 import streamlit as st
 import pandas as pd
 
-# Simulate loading a dataset (for demonstration purposes)
+# Load dataset
 @st.cache_data
-def load_data():
-    # Create a dummy dataset with equal-length columns
-    data = pd.DataFrame({
-        'age': [25, 30, 35, 40, 45],  # 5 rows
-        'household': [0, 1, 0, 1, 0],  # 5 rows (0 = No, 1 = Yes)
-        'time_since_previous_visit': [1, 2, 3, 4, 5],  # 5 rows
-        'contact_frequency': ['weekly', 'monthly', 'weekly', 'monthly', 'weekly'],  # 5 rows
-        'returned': [1, 0, 1, 0, 1]  # Target column (1 = returned, 0 = did not return)
-    })
-    return data
-
-# Simulate a prediction (rule-based)
-
-# Function to load sample dataset
 def load_data():
     return pd.DataFrame({
         "age": [25, 40, 35],
         "household": [1, 0, 1],
         "time_since_previous_visit": [2, 5, 1],
-        "contact_frequency": ["weekly", "monthly", "weekly"]
+        "contact_frequency": ["weekly", "monthly", "weekly"],
+        "returned": [1, 0, 1]  # Target column
     })
 
-# Simple prediction function (logic-based)
+# Prediction function (rule-based for now)
 def predict(input_data):
     """Predict client retention likelihood based on input data."""
     if input_data['age'].values[0] > 30 and input_data['household'].values[0] == 1:
@@ -33,7 +20,8 @@ def predict(input_data):
     else:
         return [0]  # Unlikely to return
 
-    # Streamlit App
+# Predictions Page
+def predictions_page():
     st.title("Client Retention Prediction for Food Bank")
     
     # Load and display dataset
@@ -65,63 +53,32 @@ def predict(input_data):
             st.success("✅ The client is likely to return.")
         else:
             st.error("❌ The client is unlikely to return.")
-    
-      
-        
 
+# Infographic Page
 def exploratory_data_analysis():
-    #import base 64
-    # Set the section title
     st.subheader("Infograph of Clients")
-    
-    # Display the PNG image (Make sure the file is in the correct directory)
     st.image("IFSSA CLEANED DATA_page-0001.jpg", caption="Clients Infograph", use_container_width=True)
 
-# Run the function to display the elements
-exploratory_data_analysis()
-
-
-   
-def set_background(image_url):
-    st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("{image_url}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-# Dashboard function
+# Dashboard Page
 def dashboard():
-    # Add the header image
     header_image_url = "https://raw.githubusercontent.com/ChiomaUU/Client-Prediction/refs/heads/main/ifssa_2844cc71-4dca-48ae-93c6-43295187e7ca.avif"
-    st.image(header_image_url, use_container_width=True)  # Display the image at the top
+    st.image(header_image_url, use_column_width=True)  # Display the image at the top
 
     st.title("Client Return Prediction App (MVP)")
     st.write("This app predicts whether a client will return for food hampers.")
-    
 
-# Main function to run the app
+# Main function to control the app
 def main():
-    st.sidebar.title("Client Return Prediction App")
+    st.sidebar.title("Navigation")
     app_page = st.sidebar.radio("Choose a page", ["Dashboard", "Infograph", "Predictions"])
 
     if app_page == "Dashboard":
         dashboard()
-        
     elif app_page == "Infograph":
         exploratory_data_analysis()
-        
     elif app_page == "Predictions":
-        predict()
-    
-    
+        predictions_page()
+
 # Run the app
 if __name__ == "__main__":
     main()
