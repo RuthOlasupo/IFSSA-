@@ -15,8 +15,6 @@ def load_data():
     return data
 
 # Simulate a prediction (rule-based)
-import streamlit as st
-import pandas as pd
 
 # Function to load sample dataset
 def load_data():
@@ -77,7 +75,7 @@ def exploratory_data_analysis():
     st.subheader("Infograph of Clients")
     
     # Display the PNG image (Make sure the file is in the correct directory)
-    st.image("Visualization Dashboard.png", caption="Clients Infograph", use_column_width=True)
+    st.image("IFSSA CLEANED DATA_page-0001.jpg", caption="Clients Infograph", use_column_width=True)
 
 # Run the function to display the elements
 exploratory_data_analysis()
