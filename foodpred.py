@@ -15,43 +15,59 @@ def load_data():
     return data
 
 # Simulate a prediction (rule-based)
+import streamlit as st
+import pandas as pd
+
+# Function to load sample dataset
+def load_data():
+    return pd.DataFrame({
+        "age": [25, 40, 35],
+        "household": [1, 0, 1],
+        "time_since_previous_visit": [2, 5, 1],
+        "contact_frequency": ["weekly", "monthly", "weekly"]
+    })
+
+# Simple prediction function (logic-based)
 def predict(input_data):
-     # Load the dataset
-    data = load_data()
-
-    # Display the dataset (optional)
-    if st.checkbox("Show raw data"):
-        st.write(data)
-
-    # Input fields for user to enter data
-    st.header("Input Features")
-    input_features = {}
-
-    # Create input fields for each feature
-    input_features['age'] = st.number_input("Enter Age", min_value=0, max_value=100, value=30)
-    input_features['household'] = st.selectbox("Is the client part of a household?", options=[0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
-    input_features['time_since_previous_visit'] = st.number_input("Enter Time Since Previous Visit (in months)", min_value=0, value=1)
-    input_features['contact_frequency'] = st.selectbox("Contact Frequency", options=["weekly", "monthly"])
-
-    # Convert input to DataFrame
-    input_df = pd.DataFrame([input_features])
-
-    # Make prediction
-    if st.button("Predict"):
-        prediction = predict(input_df)
-        st.subheader("Prediction Result")
-        if prediction[0] == 1:
-            st.success("The client is likely to return.")
-        else:
-            st.error("The client is unlikely to return.")
-
-
-    # Example rule: If age > 30 and household == 1, predict "likely to return"
+    """Predict client retention likelihood based on input data."""
     if input_data['age'].values[0] > 30 and input_data['household'].values[0] == 1:
         return [1]  # Likely to return
     else:
         return [0]  # Unlikely to return
-   
+
+# Streamlit App
+st.title("Client Retention Prediction for Food Bank")
+
+# Load and display dataset
+data = load_data()
+
+if st.checkbox("Show raw data"):
+    st.write(data)
+
+# User Input Section
+st.header("Enter Client Information")
+
+# Create input fields
+input_features = {
+    'age': st.number_input("Enter Age", min_value=0, max_value=100, value=30),
+    'household': st.selectbox("Is the client part of a household?", options=[0, 1], format_func=lambda x: "Yes" if x == 1 else "No"),
+    'time_since_previous_visit': st.number_input("Enter Time Since Previous Visit (in months)", min_value=0, value=1),
+    'contact_frequency': st.selectbox("Contact Frequency", options=["weekly", "monthly"])
+}
+
+# Convert input to DataFrame
+input_df = pd.DataFrame([input_features])
+
+# Prediction Button
+if st.button("Predict"):
+    prediction = predict(input_df)
+
+    st.subheader("Prediction Result")
+    if prediction[0] == 1:
+        st.success("✅ The client is likely to return.")
+    else:
+        st.error("❌ The client is unlikely to return.")
+
   
 
 
