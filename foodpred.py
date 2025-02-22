@@ -16,13 +16,48 @@ def load_data():
 
 # Simulate a prediction (rule-based)
 def predict(input_data):
+     # Load the dataset
+    data = load_data()
+
+    # Display the dataset (optional)
+    if st.checkbox("Show raw data"):
+        st.write(data)
+
+    # Input fields for user to enter data
+    st.header("Input Features")
+    input_features = {}
+
+    # Create input fields for each feature
+    input_features['age'] = st.number_input("Enter Age", min_value=0, max_value=100, value=30)
+    input_features['household'] = st.selectbox("Is the client part of a household?", options=[0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
+    input_features['time_since_previous_visit'] = st.number_input("Enter Time Since Previous Visit (in months)", min_value=0, value=1)
+    input_features['contact_frequency'] = st.selectbox("Contact Frequency", options=["weekly", "monthly"])
+
+    # Convert input to DataFrame
+    input_df = pd.DataFrame([input_features])
+
+    # Make prediction
+    if st.button("Predict"):
+        prediction = predict(input_df)
+        st.subheader("Prediction Result")
+        if prediction[0] == 1:
+            st.success("The client is likely to return.")
+        else:
+            st.error("The client is unlikely to return.")
+
+
     # Example rule: If age > 30 and household == 1, predict "likely to return"
     if input_data['age'].values[0] > 30 and input_data['household'].values[0] == 1:
         return [1]  # Likely to return
     else:
         return [0]  # Unlikely to return
+   
+  
 
-# Set the background image (optional)
+
+
+
+   
 def set_background(image_url):
     st.markdown(
         f"""
@@ -38,45 +73,31 @@ def set_background(image_url):
         """,
         unsafe_allow_html=True
     )
-
-# Main function to run the app
-def main():
+# Dashboard function
+def dashboard():
     # Add the header image
     header_image_url = "https://raw.githubusercontent.com/ChiomaUU/Client-Prediction/refs/heads/main/ifssa_2844cc71-4dca-48ae-93c6-43295187e7ca.avif"
     st.image(header_image_url, use_container_width=True)  # Display the image at the top
 
     st.title("Client Return Prediction App (MVP)")
     st.write("This app predicts whether a client will return for food hampers.")
+    
 
-    # Load the dataset
-    data = load_data()
+# Main function to run the app
+def main():
+    st.sidebar.title("Client Return Prediction App")
+    app_page = st.sidebar.radio)"Choose a page", ["Dashboard", "Infograph", "Predictions"]
 
-    # Display the dataset (optional)
-    if st.checkbox("Show raw data"):
-        st.write(data)
-
-    # Input fields for user to enter data
-    st.sidebar.header("Input Features")
-    input_features = {}
-
-    # Create input fields for each feature
-    input_features['age'] = st.sidebar.number_input("Enter Age", min_value=0, max_value=100, value=30)
-    input_features['household'] = st.sidebar.selectbox("Is the client part of a household?", options=[0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
-    input_features['time_since_previous_visit'] = st.sidebar.number_input("Enter Time Since Previous Visit (in months)", min_value=0, value=1)
-    input_features['contact_frequency'] = st.sidebar.selectbox("Contact Frequency", options=["weekly", "monthly"])
-
-    # Convert input to DataFrame
-    input_df = pd.DataFrame([input_features])
-
-    # Make prediction
-    if st.sidebar.button("Predict"):
-        prediction = predict(input_df)
-        st.subheader("Prediction Result")
-        if prediction[0] == 1:
-            st.success("The client is likely to return.")
-        else:
-            st.error("The client is unlikely to return.")
-
+    if app_page == "Dashboard":
+        dashboard()
+        
+    elif app_page == "Infograph":
+        exploratory_data_analysis()
+        
+    elif app_page == "Predictions"
+        predict()
+    
+    
 # Run the app
 if __name__ == "__main__":
     main()
